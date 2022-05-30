@@ -1,12 +1,12 @@
 {
-    "name": "zhongshaofa/easy-admin",
-    "description": "EasyAdmin工具，https://github.com/zhongshaofa/easyadmin-sdk",
+    "name": "jyjob/tpadmin-sdk",
+    "description": "TpAdmin工具，https://github.com/jyjob/tpadmin-sdk",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "zhongshaofa",
-            "email": "2286732552@qq.com"
+            "name": "jyjob",
+            "email": "373275156@qq.com"
         }
     ],
     "minimum-stability": "stable",
