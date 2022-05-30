@@ -1,6 +1,6 @@
 {
-    "name": "jyjob/tpadmin-sdk",
-    "description": "TpAdmin工具，https://github.com/jyjob/tpadmin-sdk",
+    "name": "jyjob/easyadmin-sdk",
+    "description": "EasyAdmin工具，https://github.com/jyjob/easyadmin-sdk",
     "type": "library",
     "license": "MIT",
     "authors": [
