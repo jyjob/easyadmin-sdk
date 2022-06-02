@@ -29,7 +29,7 @@ class Local extends FileBase
      */
     public function save()
     {
-        parent::save();
+        parent::saveFile();
         SaveDb::trigger($this->tableName, array_merge([
             'upload_type'   => $this->uploadType,
             'original_name' => $this->file->getOriginalName(),

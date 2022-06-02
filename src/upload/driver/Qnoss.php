@@ -30,7 +30,7 @@ class Qnoss extends FileBase
      */
     public function save()
     {
-        parent::save();
+        parent::saveFile();
         $upload = Oss::instance($this->uploadConfig)
             ->save($this->completeFilePath, $this->completeFilePath);
         if ($upload['save'] == true) {

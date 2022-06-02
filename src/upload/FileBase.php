@@ -67,6 +67,36 @@ class FileBase
     protected $saveExtra = [];
 
     /**
+     * 服务器根目录
+     * @var string
+     */
+    protected $root_dir;
+
+    /**
+     * 文件访问域名
+     * @var string
+     */
+    protected $file_view_domain;
+
+    /**
+     * 文件访问相对路径
+     * @var string
+     */
+    protected $file_view_path;
+
+    /**
+     * 文件保存相对路径
+     * @var string
+     */
+    protected $save_file_path;
+
+    /**
+     * 文件保存磁盘
+     * @var string
+     */
+    protected $save_file_disk;
+
+    /**
      * 设置上传方式
      * @param $value
      * @return $this
@@ -122,12 +152,70 @@ class FileBase
     }
 
     /**
-     * 保存文件
+     * 服务器根目录
+     * @param string $root_dir
+     * @return $this
      */
-    public function save()
+    public function setRootDir(string $root_dir): FileBase
     {
-        $this->completeFilePath = Filesystem::disk('public')->putFile('upload', $this->file);
-        $this->completeFileUrl = request()->domain() . '/' . str_replace(DIRECTORY_SEPARATOR, '/', $this->completeFilePath);
+        $this->root_dir = $root_dir;
+        return $this;
+    }
+
+    /**
+     * 文件访问域名
+     * @param string $file_view_domain
+     * @return $this
+     */
+    public function setFileViewDomain(string $file_view_domain): FileBase
+    {
+        $this->file_view_domain = $file_view_domain;
+        return $this;
+    }
+
+    /**
+     * 文件访问相对路径
+     * @param string $file_view_path
+     * @return $this
+     */
+    public function setFileViewPath(string $file_view_path): FileBase
+    {
+        $this->file_view_path = $file_view_path;
+        return $this;
+    }
+
+    /**
+     * 文件保存相对路径
+     * @param string $save_file_path
+     * @return $this
+     */
+    public function setSaveFilePath(string $save_file_path): FileBase
+    {
+        $this->save_file_path = $save_file_path;
+        return $this;
+    }
+
+    /**
+     * 文件保存磁盘
+     * @param string $save_file_disk
+     * @return $this
+     */
+    public function setSaveFileDisk(string $save_file_disk): FileBase
+    {
+        $this->save_file_disk = $save_file_disk;
+        return $this;
+    }
+
+    /**
+     * 保存文件并设置文件的路径
+     */
+    public function saveFile()
+    {
+        $savePath = Filesystem::disk($this->save_file_disk)->putFile($this->save_file_path, $this->file);
+        $this->completeFilePath = $savePath;
+        $this->completeFileUrl = $this->file_view_domain;
+        $this->file_view_path && $this->completeFileUrl .= '/' . $this->file_view_path;
+        $this->completeFileUrl .= '/' . str_replace(DIRECTORY_SEPARATOR, '/', $this->completeFilePath);
     }
 
     /**

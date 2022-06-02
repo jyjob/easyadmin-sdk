@@ -30,7 +30,7 @@ class Txcos extends FileBase
      */
     public function save()
     {
-        parent::save();
+        parent::saveFile();
         $upload = Cos::instance($this->uploadConfig)
             ->save($this->completeFilePath, $this->completeFilePath);
         if ($upload['save'] == true) {

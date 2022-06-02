@@ -52,26 +52,31 @@ class Oss implements OssDriver
         return self::$instance;
     }
 
-    public function save($objectName,$filePath)
+    public function save($objectName, $filePath)
     {
         try {
             $upload = $this->ossClient->uploadFile($this->bucket, $objectName, $filePath);
         } catch (OssException $e) {
             return [
                 'save' => false,
-                'msg'  => $e->getMessage(),
+                'msg' => $e->getMessage(),
             ];
         }
         if (!isset($upload['info']['url'])) {
             return [
                 'save' => false,
-                'msg'  => '保存失败',
+                'msg' => '保存失败',
             ];
+        }
+        $url = $upload['info']['url'];
+        if ($this->domain) {
+            $url_arr = parse_url($url);
+            $url_arr['host'] && $url = str_replace($url_arr['host'], $this->domain, $url);
         }
         return [
             'save' => true,
-            'msg'  => '上传成功',
-            'url'  => $upload['info']['url'],
+            'msg' => '上传成功',
+            'url' => $url,
         ];
     }
 
