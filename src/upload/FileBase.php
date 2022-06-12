@@ -213,9 +213,10 @@ class FileBase
     {
         $savePath = Filesystem::disk($this->save_file_disk)->putFile($this->save_file_path, $this->file);
         $this->completeFilePath = $savePath;
-        $this->completeFileUrl = $this->file_view_domain;
-        $this->file_view_path && $this->completeFileUrl .= '/' . $this->file_view_path;
-        $this->completeFileUrl .= '/' . str_replace(DIRECTORY_SEPARATOR, '/', $this->completeFilePath);
+//        $this->completeFileUrl = $this->file_view_domain;
+//        $this->file_view_path && $this->completeFileUrl .= '/' . $this->file_view_path;
+//        $this->completeFileUrl .= '/' . str_replace(DIRECTORY_SEPARATOR, '/', $this->completeFilePath);
+        $this->completeFileUrl = $this->completeFilePath;
     }
 
     /**

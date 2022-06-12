@@ -64,7 +64,7 @@ class Oss implements OssDriver
             return [
                 'save' => true,
                 'msg'  => '上传成功',
-                'url'  => $this->domain . '/' . $result['key'],
+                'url'  => $result['key'],
             ];
         }
     }

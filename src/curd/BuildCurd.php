@@ -256,10 +256,10 @@ class BuildCurd
             foreach ($colums as $vo) {
 
                 $colum = [
-                    'type'     => $vo['Type'],
-                    'comment'  => !empty($vo['Comment']) ? $vo['Comment'] : $vo['Field'],
+                    'type' => $vo['Type'],
+                    'comment' => !empty($vo['Comment']) ? $vo['Comment'] : $vo['Field'],
                     'required' => $vo['Null'] == "NO" ? true : false,
-                    'default'  => $vo['Default'],
+                    'default' => $vo['Default'],
                 ];
 
                 // 格式化列数据
@@ -339,7 +339,7 @@ class BuildCurd
                     continue;
                 }
                 $colum = [
-                    'type'    => $vo['Type'],
+                    'type' => $vo['Type'],
                     'comment' => $vo['Comment'],
                     'default' => $vo['Default'],
                 ];
@@ -357,13 +357,13 @@ class BuildCurd
             $modelName = array_pop($modelArray);
 
             $relation = [
-                'modelFilename'   => $modelFilename,
-                'modelName'       => $modelName,
-                'foreignKey'      => $foreignKey,
-                'primaryKey'      => $primaryKey,
+                'modelFilename' => $modelFilename,
+                'modelName' => $modelName,
+                'foreignKey' => $foreignKey,
+                'primaryKey' => $primaryKey,
                 'bindSelectField' => $bindSelectField,
-                'delete'          => $delete,
-                'tableColumns'    => $formatColums,
+                'delete' => $delete,
+                'tableColumns' => $formatColums,
             ];
             if (!empty($bindSelectField)) {
                 $relationArray = explode('\\', $modelFilename);
@@ -708,7 +708,7 @@ class BuildCurd
         $selectCode = CommonTool::replaceTemplate(
             $this->getTemplate("model{$this->DS}select"),
             [
-                'name'   => $name,
+                'name' => $name,
                 'values' => $values,
             ]);
         return $selectCode;
@@ -728,9 +728,9 @@ class BuildCurd
         $selectCode = CommonTool::replaceTemplate(
             $this->getTemplate("model{$this->DS}relationSelect"),
             [
-                'name'     => $name,
+                'name' => $name,
                 'relation' => $relation,
-                'values'   => $filed,
+                'values' => $filed,
             ]);
         return $selectCode;
     }
@@ -748,7 +748,7 @@ class BuildCurd
         $optionCode = CommonTool::replaceTemplate(
             $this->getTemplate("view{$this->DS}module{$this->DS}option"),
             [
-                'name'   => $name,
+                'name' => $name,
                 'select' => $select,
             ]);
         return $optionCode;
@@ -767,8 +767,8 @@ class BuildCurd
         $optionCode = CommonTool::replaceTemplate(
             $this->getTemplate("view{$this->DS}module{$this->DS}radioInput"),
             [
-                'field'  => $field,
-                'name'   => $name,
+                'field' => $field,
+                'name' => $name,
                 'select' => $select,
             ]);
         return $optionCode;
@@ -787,8 +787,8 @@ class BuildCurd
         $optionCode = CommonTool::replaceTemplate(
             $this->getTemplate("view{$this->DS}module{$this->DS}checkboxInput"),
             [
-                'field'  => $field,
-                'name'   => $name,
+                'field' => $field,
+                'name' => $name,
                 'select' => $select,
             ]);
         return $optionCode;
@@ -1000,17 +1000,17 @@ class BuildCurd
             }
         }
 
-        $modelFilenameExtend = str_replace($this->DS,'\\',$this->modelFilename);
+        $modelFilenameExtend = str_replace($this->DS, '\\', $this->modelFilename);
 
         $controllerValue = CommonTool::replaceTemplate(
             $this->getTemplate("controller{$this->DS}controller"),
             [
-                'controllerName'       => $this->controllerName,
-                'controllerNamespace'  => $this->controllerNamespace,
+                'controllerName' => $this->controllerName,
+                'controllerNamespace' => $this->controllerNamespace,
                 'controllerAnnotation' => $this->tableComment,
-                'modelFilename'        => "\app\admin\model\\{$modelFilenameExtend}",
-                'indexMethod'          => $controllerIndexMethod,
-                'selectList'           => $selectList,
+                'modelFilename' => "\app\admin\model\\{$modelFilenameExtend}",
+                'indexMethod' => $controllerIndexMethod,
+                'selectList' => $selectList,
             ]);
         $this->fileList[$controllerFile] = $controllerValue;
         return $this;
@@ -1034,9 +1034,9 @@ class BuildCurd
                     $this->getTemplate("model{$this->DS}relation"),
                     [
                         'relationMethod' => $relation,
-                        'relationModel'  => "\app\admin\model\\{$val['modelFilename']}",
-                        'foreignKey'     => $val['foreignKey'],
-                        'primaryKey'     => $val['primaryKey'],
+                        'relationModel' => "\app\admin\model\\{$val['modelFilename']}",
+                        'foreignKey' => $val['foreignKey'],
+                        'primaryKey' => $val['primaryKey'],
                     ]);
                 $relationList .= $relationCode;
             }
@@ -1064,12 +1064,12 @@ class BuildCurd
         $modelValue = CommonTool::replaceTemplate(
             $this->getTemplate("model{$this->DS}model"),
             [
-                'modelName'      => $this->modelName,
+                'modelName' => $this->modelName,
                 'modelNamespace' => "app\admin\model{$extendNamespace}",
-                'table'          => $this->table,
-                'deleteTime'     => $this->delete ? '"delete_time"' : 'false',
-                'relationList'   => $relationList,
-                'selectList'     => $selectList,
+                'table' => $this->table,
+                'deleteTime' => $this->delete ? '"delete_time"' : 'false',
+                'relationList' => $relationList,
+                'selectList' => $selectList,
             ]);
         $this->fileList[$modelFile] = $modelValue;
 
@@ -1096,12 +1096,12 @@ class BuildCurd
             $relationModelValue = CommonTool::replaceTemplate(
                 $this->getTemplate("model{$this->DS}model"),
                 [
-                    'modelName'      => $val['modelName'],
+                    'modelName' => $val['modelName'],
                     'modelNamespace' => "app\admin\model{$extendNamespace}",
-                    'table'          => $key,
-                    'deleteTime'     => $val['delete'] ? '"delete_time"' : 'false',
-                    'relationList'   => '',
-                    'selectList'     => '',
+                    'table' => $key,
+                    'deleteTime' => $val['delete'] ? '"delete_time"' : 'false',
+                    'relationList' => '',
+                    'selectList' => '',
                 ]);
             $this->fileList[$relationModelFile] = $relationModelValue;
         }
@@ -1128,7 +1128,7 @@ class BuildCurd
         $addFormList = '';
         foreach ($this->tableColumns as $field => $val) {
 
-            if (in_array($field, ['id', 'create_time'])) {
+            if (in_array($field, ['id', 'create_time', 'uniacid', 'status'])) {
                 continue;
             }
 
@@ -1182,11 +1182,11 @@ class BuildCurd
             $addFormList .= CommonTool::replaceTemplate(
                 $this->getTemplate($templateFile),
                 [
-                    'comment'  => $val['comment'],
-                    'field'    => $field,
+                    'comment' => $val['comment'],
+                    'field' => $field,
                     'required' => $this->buildRequiredHtml($val['required']),
-                    'value'    => $val['default'],
-                    'define'   => $define,
+                    'value' => $val['default'],
+                    'define' => $define,
                 ]);
         }
         $viewAddValue = CommonTool::replaceTemplate(
@@ -1202,7 +1202,7 @@ class BuildCurd
         $editFormList = '';
         foreach ($this->tableColumns as $field => $val) {
 
-            if (in_array($field, ['id', 'create_time'])) {
+            if (in_array($field, ['id', 'create_time', 'uniacid', 'status'])) {
                 continue;
             }
 
@@ -1258,11 +1258,11 @@ class BuildCurd
             $editFormList .= CommonTool::replaceTemplate(
                 $this->getTemplate($templateFile),
                 [
-                    'comment'  => $val['comment'],
-                    'field'    => $field,
+                    'comment' => $val['comment'],
+                    'field' => $field,
                     'required' => $this->buildRequiredHtml($val['required']),
-                    'value'    => $value,
-                    'define'   => $define,
+                    'value' => $value,
+                    'define' => $define,
                 ]);
         }
         $viewEditValue = CommonTool::replaceTemplate(
@@ -1287,6 +1287,10 @@ class BuildCurd
 
         // 主表字段
         foreach ($this->tableColumns as $field => $val) {
+
+            if (in_array($field, ['uniacid'])) {
+                continue;
+            }
 
             if ($val['formType'] == 'image') {
                 $templateValue = "{field: '{$field}', title: '{$val['comment']}', templet: ea.table.image}";
@@ -1359,7 +1363,7 @@ class BuildCurd
             $this->getTemplate("static{$this->DS}js"),
             [
                 'controllerUrl' => $this->controllerUrl,
-                'indexCols'     => $indexCols,
+                'indexCols' => $indexCols,
             ]);
         $this->fileList[$jsFile] = $jsValue;
         return $this;

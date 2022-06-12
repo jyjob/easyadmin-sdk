@@ -69,10 +69,8 @@ class Oss implements OssDriver
             ];
         }
         $url = $upload['info']['url'];
-        if ($this->domain) {
-            $url_arr = parse_url($url);
-            $url_arr['host'] && $url = str_replace($url_arr['host'], $this->domain, $url);
-        }
+        $url_arr = parse_url($url);
+        $url = trim($url_arr['path'], '/');
         return [
             'save' => true,
             'msg' => '上传成功',
